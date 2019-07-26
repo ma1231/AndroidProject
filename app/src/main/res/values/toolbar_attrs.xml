@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="toolbarView">
+        <attr name="left_text" format="string"/>
+        <attr name="button_text" format="string"/>
+    </declare-styleable>
+</resources>

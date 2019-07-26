@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="mouldView">
+        <attr name="img_src" format="reference"/>
+        <attr name="text" format="string"/>
+        <attr name="edit_text" format="string"/>
+        <attr name="edit_visibility" format="string"/>
+    </declare-styleable>
+</resources>

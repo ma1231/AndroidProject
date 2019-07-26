@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+   <LinearLayout
+       android:layout_width="0dp"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:layout_weight="1">
+   <com.example.personalapplication.CustomCircleView
+       android:id="@+id/head_sculpture"
+       android:layout_width="90dp"
+       android:layout_height="90dp"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginTop="40dp"
+       android:src="@mipmap/header"/>
+   <EditText
+       android:id="@+id/nickname"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginTop="40dp"
+       android:gravity="center"
+       android:hint="昵 称"
+       android:textSize="20sp" />
+   </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="0dp"
+       android:layout_height="match_parent"
+       android:layout_weight="2"
+       android:orientation="horizontal">
+
+      <com.example.personalapplication.MouldView
+          android:id="@+id/personal"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          app:edit_visibility="invisible"
+          app:img_src="@mipmap/header"
+          app:text="个人信息" />
+
+      <com.example.personalapplication.MouldView
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          app:img_src="@mipmap/header"
+          app:edit_visibility="invisible"
+          app:text="车辆信息" />
+
+      <com.example.personalapplication.MouldView
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          app:img_src="@mipmap/header"
+          app:edit_visibility="invisible"
+          app:text="我的订单">
+      </com.example.personalapplication.MouldView>
+      <com.example.personalapplication.MouldView
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          app:img_src="@mipmap/header"
+          app:edit_visibility="invisible"
+          app:text="我的钱包">
+      </com.example.personalapplication.MouldView>
+
+   </LinearLayout>
+
+</LinearLayout>
