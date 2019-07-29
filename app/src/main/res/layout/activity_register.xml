@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RegisterActivity">
+
+    <com.example.personalapplication.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:button_visibility="gone"
+        app:left_text="注册" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/username"
+        android:layout_alignTop="@+id/username"
+        android:src="@mipmap/user" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/password"
+        android:layout_alignTop="@+id/password"
+        android:src="@mipmap/password" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/password_again"
+        android:layout_alignTop="@+id/password_again"
+        android:src="@mipmap/password" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/birthday"
+        android:layout_alignTop="@+id/birthday"
+        android:src="@mipmap/birthday" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:hint="请输入您的用户名" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/password_again"
+        android:layout_marginBottom="20dp"
+        android:hint="请输入您的密码"/>
+
+    <EditText
+        android:id="@+id/password_again"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/birthday"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:hint="请再次输入您的密码"/>
+
+    <EditText
+        android:id="@+id/birthday"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:cursorVisible="false"
+        android:hint="请选择您的生日"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="注   册"/>
+
+</RelativeLayout>

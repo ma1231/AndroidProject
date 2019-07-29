@@ -10,6 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:button_visibility="visible"
         app:button_text="退出登录"
         app:left_text="个人信息" />
 

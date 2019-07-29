@@ -3,5 +3,6 @@
     <declare-styleable name="toolbarView">
         <attr name="left_text" format="string"/>
         <attr name="button_text" format="string"/>
+        <attr name="button_visibility" format="string" />
     </declare-styleable>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.personalapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +19,8 @@ public class NicknameDialog extends DialogFragment implements View.OnClickListen
     private View view;
     private Button btn_destory;
     private Button btn_save;
-    private EditText edit_nickName;
+    private EditText edit_nickname;
+    private onNicknameEditedListener listener;
 
     @Nullable
     @Override
@@ -29,7 +30,7 @@ public class NicknameDialog extends DialogFragment implements View.OnClickListen
         }
         btn_destory=view.findViewById(R.id.destroy);
         btn_save=view.findViewById(R.id.save);
-        edit_nickName=view.findViewById(R.id.nickname_edit);
+        edit_nickname=view.findViewById(R.id.nickname_edit);
         btn_destory.setOnClickListener(this);
         btn_save.setOnClickListener(this);
         return view;
@@ -43,14 +44,30 @@ public class NicknameDialog extends DialogFragment implements View.OnClickListen
                 break;
             case R.id.save:
                 SharedPreferences.Editor editor=getContext().getSharedPreferences("data", Context.MODE_PRIVATE).edit();
-                String nickName=edit_nickName.getText().toString();
-                editor.putString("nickName",nickName);
+                String nickname=edit_nickname.getText().toString();
+                if(nickname.length()>9){
+                    Toast.makeText(getContext(),"昵称长度不能超过8个字符，请重新输入",Toast.LENGTH_SHORT).show();
+                    edit_nickname.getText().clear();
+                    break;
+                }else{
+                listener.onNicknameEdited(nickname);
+                editor.putString("nickname",nickname);
                 editor.apply();
                 this.dismiss();
                 editor.clear();
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    //回调接口
+    public interface onNicknameEditedListener{
+        void onNicknameEdited(String nickname);
+    }
+
+    public void setonNickNameEditedListener(onNicknameEditedListener listener) {
+        this.listener = listener;
     }
 }

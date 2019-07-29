@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -17,17 +18,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.io.ByteArrayOutputStream;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NicknameDialog.onNicknameEditedListener {
 
     private CustomCircleView head_sculpture;
     private MouldView personal_mouldView;
     private EditText editText;
-
     private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+    private NicknameDialog nicknameDialog;
 
     private static final int CHOOSE_PHOTO = 2;
 
@@ -35,13 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        pref = getSharedPreferences("data", MODE_PRIVATE);
         head_sculpture = findViewById(R.id.head_sculpture);
         personal_mouldView = findViewById(R.id.personal);
         editText = findViewById(R.id.nickname);
         editText.setCursorVisible(false);
-        String nickName = pref.getString("nickName", "");
-        editText.setText(nickName);
+        this.loadImageAndNickname();
         head_sculpture.setOnClickListener(this);
         personal_mouldView.setOnClickListener(this);
         editText.setOnClickListener(this);
@@ -62,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.nickname:
-                NicknameDialog nicknameDialog = new NicknameDialog();
+                nicknameDialog = new NicknameDialog();
+                nicknameDialog.setonNickNameEditedListener(this);
                 nicknameDialog.show(getSupportFragmentManager(), "show");
             default:
                 break;
@@ -96,11 +100,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     handleImageOnKitKat(data);
                 }
                 break;
-            case 3:
-                if(resultCode==RESULT_OK){
-                    String nickName=data.getExtras().toString();
-                    editText.setText(nickName);
-                }
+            default:
+                break;
         }
     }
 
@@ -141,8 +142,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (imagePath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             head_sculpture.setImageBitmap(bitmap);
+            editor = getSharedPreferences("image", MODE_PRIVATE).edit();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, baos);
+            String imageBase64 = new String(Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT));
+            editor.putString("head_sculpture", imageBase64);
+            editor.apply();
+            editor.clear();
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void loadImageAndNickname() {
+        pref = getSharedPreferences("data", MODE_PRIVATE);
+        String nickname = pref.getString("nickname", "");
+        editText.setText(nickname);
+        pref = getSharedPreferences("image", MODE_PRIVATE);
+        String headPic = pref.getString("head_sculpture", "");
+        Bitmap bitmap;
+        if (headPic != "") {
+            byte[] bytes = Base64.decode(headPic.getBytes(), 1);
+            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            head_sculpture.setImageBitmap(bitmap);
+        }
+    }
+
+    //nickname回调函数
+    @Override
+    public void onNicknameEdited(String nickname){
+        editText.setText(nickname);
     }
 }
