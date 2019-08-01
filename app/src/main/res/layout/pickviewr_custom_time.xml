@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/destroy"
@@ -23,8 +22,8 @@
         android:id="@+id/timepicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
 
         <com.contrarywind.view.WheelView
             android:id="@+id/year"
@@ -33,7 +32,6 @@
             android:layout_weight="1" />
 
         <com.contrarywind.view.WheelView
-
             android:id="@+id/month"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -65,7 +63,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/save"
+        android:id="@+id/confirm"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

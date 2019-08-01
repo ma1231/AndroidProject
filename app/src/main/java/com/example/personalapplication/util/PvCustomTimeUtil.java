@@ -16,13 +16,8 @@ public class PvCustomTimeUtil {
 
     private static TimePickerView pvCustomTime;
 
-    public static TimePickerView initCustomTimePicker(Context context) {
-        pvCustomTime = new TimePickerBuilder(context, new OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date, View v) {
-
-            }
-        })
+    public static TimePickerView initCustomTimePicker(Context context,OnTimeSelectListener onTimeSelectListener) {
+        pvCustomTime = new TimePickerBuilder(context,onTimeSelectListener)
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .setCancelText("取消")
                 .setSubmitText("确认")
@@ -34,13 +29,14 @@ public class PvCustomTimeUtil {
                 .setLayoutRes(R.layout.pickviewr_custom_time, new CustomListener() {
                     @Override
                     public void customLayout(View v) {
-                        Button mSaveBtn = v.findViewById(R.id.save);
+                        final Button mConfirmBtn = v.findViewById(R.id.confirm);
                         Button mCancelBtn = v.findViewById(R.id.cancel);
                         Button mDestroyBtn = v.findViewById(R.id.destroy);
-                        mSaveBtn.setOnClickListener(new View.OnClickListener() {
+                        mConfirmBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
+                                pvCustomTime.returnData();
+                                pvCustomTime.dismiss();
                             }
                         });
                         mCancelBtn.setOnClickListener(new View.OnClickListener() {

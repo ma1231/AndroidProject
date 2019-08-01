@@ -12,7 +12,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     private Button loginBtn;
     private Button registerBtn;
-    private ImageView backgroundImg;
+    private ImageView backgroundImg;//欢迎界面背景图通过网络获取，待完成
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_welcome);
         loginBtn = findViewById(R.id.login_btn);
         registerBtn = findViewById(R.id.register_btn);
-        backgroundImg = findViewById(R.id.background_picture);//网络请求
+        backgroundImg = findViewById(R.id.background_picture);
         loginBtn.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
     }
@@ -29,8 +29,15 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.register_btn:
-                Intent intent = new Intent(this, RegisterActivity.class);
-                startActivity(intent);
+                Intent intentReg = new Intent(this, RegisterActivity.class);
+                startActivity(intentReg);
+                break;
+            case R.id.login_btn:
+                Intent intentLog=new Intent(this,LoginActivity.class);
+                startActivity(intentLog);
+                break;
+            default:
+                break;
         }
     }
 }

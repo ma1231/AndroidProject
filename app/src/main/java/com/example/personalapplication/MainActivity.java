@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.isFirstTimeLogin();
         head_sculpture = findViewById(R.id.head_sculpture);
         personal_mouldView = findViewById(R.id.personal);
         editText = findViewById(R.id.nickname);
@@ -48,6 +50,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         head_sculpture.setOnClickListener(this);
         personal_mouldView.setOnClickListener(this);
         editText.setOnClickListener(this);
+    }
+
+    //点击退出登录后，重新启动程序，回退到欢迎界面，待完成
+    private void isFirstTimeLogin() {
+        pref = getSharedPreferences("currentUsername", MODE_PRIVATE);
+        if (TextUtils.isEmpty(pref.getString("currentUsername", ""))) {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -170,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //nickname回调函数
     @Override
-    public void onNicknameEdited(String nickname){
+    public void onNicknameEdited(String nickname) {
         editText.setText(nickname);
     }
 }

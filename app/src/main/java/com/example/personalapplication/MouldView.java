@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
-//自定义组合控件View
+//自定义组合控件
 public class MouldView extends RelativeLayout {
 
     private CustomCircleView customCircleView;
@@ -34,8 +34,8 @@ public class MouldView extends RelativeLayout {
         String visibility =mTypedArray.getString(R.styleable.mouldView_edit_visibility);
         customCircleView.setImageResource(img_src);
         info_textView.setText(text);
-        if(visibility.equals("gone")){
-            edit_textView.setVisibility(View.GONE);
+        if(visibility.equals("visible")){
+            edit_textView.setVisibility(View.VISIBLE);
         }else if(visibility.equals("invisible")){
             edit_textView.setVisibility(View.INVISIBLE);
         }
@@ -48,5 +48,15 @@ public class MouldView extends RelativeLayout {
         info_textView = findViewById(R.id.mould_info);
         edit_textView = findViewById(R.id.mould_edit);
         cardView = findViewById(R.id.mould_cardView);
+    }
+
+    //设置Edit_textView内容
+    public void setText(String text) {
+        edit_textView.setText(text);
+    }
+
+    //设置Edit_textView点击监听事件
+    public void setEditTextViewListener(OnClickListener onClickListener){
+        edit_textView.setOnClickListener(onClickListener);
     }
 }

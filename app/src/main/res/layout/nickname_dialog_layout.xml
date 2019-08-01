@@ -22,16 +22,16 @@
         android:id="@+id/nickname_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="1"
+        android:layout_centerInParent="true"
         android:background="@drawable/edit_bg"
-        android:layout_centerInParent="true"/>
-    
+        android:maxLines="1" />
+
     <Button
         android:id="@+id/save"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="确定"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:text="确定" />
 
 </RelativeLayout>

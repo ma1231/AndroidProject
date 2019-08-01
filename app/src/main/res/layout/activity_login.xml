@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".LoginActivity">
 
     <com.example.personalapplication.CustomToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:button_visibility="gone"
-        app:left_text="注册" />
+        app:left_text="登录" />
 
     <ImageView
         android:layout_width="30dp"
@@ -30,22 +29,6 @@
         android:layout_toLeftOf="@+id/password"
         android:src="@mipmap/password" />
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="45dp"
-        android:layout_alignTop="@+id/password_again"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/password_again"
-        android:src="@mipmap/password" />
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="45dp"
-        android:layout_alignTop="@+id/birthday"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/birthday"
-        android:src="@mipmap/birthday" />
-
     <EditText
         android:id="@+id/username"
         android:layout_width="200dp"
@@ -59,40 +42,34 @@
         android:id="@+id/password"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/password_again"
+        android:layout_above="@+id/login"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:hint="请输入您的密码"
         android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/password_again"
-        android:layout_width="200dp"
+    <CheckBox
+        android:id="@+id/remember_password"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/birthday"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:hint="请再次输入您的密码"
-        android:inputType="textPassword" />
+        android:layout_above="@+id/login"
+        android:layout_alignLeft="@+id/login" />
 
-    <EditText
-        android:id="@+id/birthday"
-        android:layout_width="200dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:cursorVisible="false"
-        android:hint="请选择您的生日"
-        android:inputType="date" />
+        android:layout_above="@+id/login"
+        android:layout_marginBottom="7dp"
+        android:layout_toRightOf="@+id/remember_password"
+        android:text="记住密码" />
 
     <Button
-        android:id="@+id/register"
+        android:id="@+id/login"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="注   册" />
+        android:layout_marginBottom="30dp"
+        android:text="登录" />
 
 </RelativeLayout>
