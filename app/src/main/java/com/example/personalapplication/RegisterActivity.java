@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.personalapplication.db.User;
+import com.example.personalapplication.util.CheckFormatUtils;
 import com.example.personalapplication.util.DateUtils;
 import com.example.personalapplication.util.PvCustomTimeUtil;
 
@@ -92,8 +93,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 username = mUsername.getText().toString().trim();
                 password = mPassword.getText().toString().trim();
                 passwordAga = mPasswordAga.getText().toString().trim();
-                usernameFlag = checkUsername(username);
-                passwordFlag = checkPassword(password);
+                usernameFlag = CheckFormatUtils.checkUsername(username);
+                passwordFlag = CheckFormatUtils.checkPassword(password);
                 List<User> users = LitePal.select("username").where("username = ?", username).find(User.class);
                 boolean registerFlag = false;
                 loop:while (!registerFlag) {
@@ -134,24 +135,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             default:
                 break;
         }
-    }
-
-    private boolean checkUsername(String username) {
-        //用户名以字母开头，只能包含数字、字母、下划线，长度为6-16位
-        String regex = "^[a-zA-z][0-9a-zA-Z_]{5,15}$";
-        if (username.matches(regex)) {
-            return true;
-        } else
-            return false;
-    }
-
-    private boolean checkPassword(String password) {
-        //密码 6-16位数字和字母的组合
-        String regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";
-        if (password.matches(regex)) {
-            return true;
-        } else
-            return false;
     }
 
     //回调日期

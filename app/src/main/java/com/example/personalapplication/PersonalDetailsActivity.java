@@ -3,16 +3,11 @@ package com.example.personalapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.personalapplication.db.User;
@@ -32,6 +27,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private TimePickerView pvCustomTime;
+    private String currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +37,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
         mPasswordText = findViewById(R.id.mould_password);
         pvCustomTime = PvCustomTimeUtil.initCustomTimePicker(this, this);
         pref = getSharedPreferences("currentUsername", MODE_PRIVATE);
-        String currentUsername = pref.getString("currentUsername", "");
+        currentUsername = pref.getString("currentUsername", "");
         List<User> users = LitePal.select("birthday").where("username = ?", currentUsername).find(User.class);
         mBirthdayText.setText(DateUtils.date2String(users.get(0).getBirthday()));
         mPasswordText.setText("修改密码");
@@ -49,6 +45,13 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
             @Override
             public void onClick(View view) {
                 pvCustomTime.show();
+            }
+        });
+        mPasswordText.setEditTextViewListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PersonalDetailsActivity.this,ChangePassActivity.class);
+                startActivity(intent);
             }
         });
         toolbar = findViewById(R.id.toolbar);
@@ -87,6 +90,8 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
     @Override
     public void onTimeSelect(Date date, View v) {
         mBirthdayText.setText(DateUtils.date2String(date));
-        //更新数据
+        User user = new User();
+        user.setBirthday(date);
+        user.updateAll("username = ?", currentUsername);
     }
 }

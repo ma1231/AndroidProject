@@ -59,7 +59,7 @@
             android:layout_weight="1"
             app:edit_visibility="invisible"
             app:img_src="@mipmap/header"
-            app:text="我的订单"></com.example.personalapplication.MouldView>
+            app:text="我的订单"/>
 
         <com.example.personalapplication.MouldView
             android:layout_width="0dp"
@@ -67,7 +67,7 @@
             android:layout_weight="1"
             app:edit_visibility="invisible"
             app:img_src="@mipmap/header"
-            app:text="我的钱包"></com.example.personalapplication.MouldView>
+            app:text="我的钱包"/>
 
     </LinearLayout>
 
