@@ -18,6 +18,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        MyApplication.addActivity(this);
         loginBtn = findViewById(R.id.login_btn);
         registerBtn = findViewById(R.id.register_btn);
         backgroundImg = findViewById(R.id.background_picture);
@@ -39,5 +40,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MyApplication.finishAll();
     }
 }

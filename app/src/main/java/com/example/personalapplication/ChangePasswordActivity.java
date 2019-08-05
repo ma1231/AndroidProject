@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.method.TransformationMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,7 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-public class ChangePassActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
 
     private CustomPasswordInput mOldPassword;
     private CustomPasswordInput mNewPassword;
@@ -31,7 +30,8 @@ public class ChangePassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_pass);
+        setContentView(R.layout.activity_change_password);
+        MyApplication.addActivity(this);
         mOldPassword = findViewById(R.id.old_password);
         mNewPassword = findViewById(R.id.new_password);
         mNewPasswordAga = findViewById(R.id.new_passwordAga);
@@ -69,27 +69,27 @@ public class ChangePassActivity extends AppCompatActivity {
                 passwordFlag = CheckFormatUtils.checkPassword(newPassword);
                 while (!successFlag) {
                     if (!password.equals(oldPassword)) {
-                        Toast.makeText(ChangePassActivity.this, "您输入的旧密码错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "您输入的旧密码错误", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     if (oldPassword.equals(newPassword)) {
-                        Toast.makeText(ChangePassActivity.this, "请不要重复设置密码", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "请不要重复设置密码", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     if (!passwordFlag) {
-                        Toast.makeText(ChangePassActivity.this, "新密码格式错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "新密码格式错误", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     if (!newPassword.equals(newPasswordAga)) {
-                        Toast.makeText(ChangePassActivity.this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     successFlag = true;
                     User user = new User();
                     user.setPassword(newPassword);
                     user.updateAll("username = ?", currentUsername);
-                    Toast.makeText(ChangePassActivity.this, "修改密码成功，请您重新登录", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ChangePassActivity.this, LoginActivity.class);
+                    Toast.makeText(ChangePasswordActivity.this, "修改密码成功，请您重新登录", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }

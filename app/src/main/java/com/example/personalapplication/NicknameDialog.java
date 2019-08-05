@@ -24,12 +24,12 @@ public class NicknameDialog extends DialogFragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (view == null){
-            view = inflater.inflate(R.layout.nickname_dialog_layout,container);
+        if (view == null) {
+            view = inflater.inflate(R.layout.nickname_dialog_layout, container);
         }
-        btn_destory=view.findViewById(R.id.destroy);
-        btn_save=view.findViewById(R.id.save);
-        edit_nickname=view.findViewById(R.id.nickname_edit);
+        btn_destory = view.findViewById(R.id.destroy);
+        btn_save = view.findViewById(R.id.save);
+        edit_nickname = view.findViewById(R.id.nickname_edit);
         btn_destory.setOnClickListener(this);
         btn_save.setOnClickListener(this);
         return view;
@@ -37,23 +37,19 @@ public class NicknameDialog extends DialogFragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.destroy:
                 this.dismiss();
                 break;
             case R.id.save:
-                SharedPreferences.Editor editor=getContext().getSharedPreferences("data", Context.MODE_PRIVATE).edit();
-                String nickname=edit_nickname.getText().toString();
-                if(nickname.length()>9){
-                    Toast.makeText(getContext(),"昵称长度不能超过8个字符，请重新输入",Toast.LENGTH_SHORT).show();
+                String nickname = edit_nickname.getText().toString();
+                if (nickname.length() > 9) {
+                    Toast.makeText(getContext(), "昵称长度不能超过8个字符，请重新输入", Toast.LENGTH_SHORT).show();
                     edit_nickname.getText().clear();
                     break;
-                }else{
-                listener.onNicknameEdited(nickname);
-                editor.putString("nickname",nickname);
-                editor.apply();
-                this.dismiss();
-                editor.clear();
+                } else {
+                    listener.onNicknameEdited(nickname);
+                    this.dismiss();
                 }
                 break;
             default:
@@ -62,7 +58,7 @@ public class NicknameDialog extends DialogFragment implements View.OnClickListen
     }
 
     //回调接口
-    public interface onNicknameEditedListener{
+    public interface onNicknameEditedListener {
         void onNicknameEdited(String nickname);
     }
 

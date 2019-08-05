@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        MyApplication.addActivity(this);
         pref = getSharedPreferences("rememberPass", MODE_PRIVATE);
         mUsername = findViewById(R.id.username);
         mPassword = findViewById(R.id.password);

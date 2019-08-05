@@ -22,8 +22,6 @@ import com.example.personalapplication.util.DateUtils;
 import com.example.personalapplication.util.PvCustomTimeUtil;
 
 import org.litepal.LitePal;
-import org.litepal.crud.LitePalSupport;
-import org.litepal.tablemanager.Connector;
 
 import java.util.Date;
 import java.util.List;
@@ -45,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        MyApplication.addActivity(this);
         pvCustomTime = PvCustomTimeUtil.initCustomTimePicker(this, this);
         mUsername = findViewById(R.id.username);
         mPassword = findViewById(R.id.password);
@@ -113,7 +112,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         break loop;
                     }
                     if (!passwordAga.equals(password)) {
-                        mPasswordAga.setText(null);
                         Toast.makeText(this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
                         break loop;
                     }

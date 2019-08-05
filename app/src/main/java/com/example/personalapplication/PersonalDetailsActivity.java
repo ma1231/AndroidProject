@@ -33,6 +33,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_details_layout);
+        MyApplication.addActivity(this);
         mBirthdayText = findViewById(R.id.mould_birthday);
         mPasswordText = findViewById(R.id.mould_password);
         pvCustomTime = PvCustomTimeUtil.initCustomTimePicker(this, this);
@@ -50,7 +51,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
         mPasswordText.setEditTextViewListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PersonalDetailsActivity.this,ChangePassActivity.class);
+                Intent intent = new Intent(PersonalDetailsActivity.this,ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });

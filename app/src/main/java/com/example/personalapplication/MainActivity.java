@@ -20,11 +20,13 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.TimeUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NicknameDialog.onNicknameEditedListener {
 
@@ -34,13 +36,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private NicknameDialog nicknameDialog;
+    private boolean isTwoPressed;
+    private String currentUsername;
 
+    private static final int OPEN_ALBUM = 1;
     private static final int CHOOSE_PHOTO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyApplication.addActivity(this);
         this.isFirstTimeLogin();
         head_sculpture = findViewById(R.id.head_sculpture);
         personal_mouldView = findViewById(R.id.personal);
@@ -52,10 +58,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editText.setOnClickListener(this);
     }
 
-    //点击退出登录后，重新启动程序，回退到欢迎界面，待完成
     private void isFirstTimeLogin() {
         pref = getSharedPreferences("currentUsername", MODE_PRIVATE);
-        if (TextUtils.isEmpty(pref.getString("currentUsername", ""))) {
+        currentUsername=pref.getString("currentUsername", "");
+        if (TextUtils.isEmpty(currentUsername)) {
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
         }
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.head_sculpture:
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, OPEN_ALBUM);
                 } else {
                     openAlbum();
                 }
@@ -93,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case 1:
+            case OPEN_ALBUM:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openAlbum();
                 } else {
@@ -153,10 +159,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (imagePath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             head_sculpture.setImageBitmap(bitmap);
-            editor = getSharedPreferences("image", MODE_PRIVATE).edit();
+            editor = getSharedPreferences(currentUsername+"image", MODE_PRIVATE).edit();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 50, baos);
-            String imageBase64 = new String(Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT));
+            String imageBase64 = (Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT));
             editor.putString("head_sculpture", imageBase64);
             editor.apply();
             editor.clear();
@@ -166,10 +172,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void loadImageAndNickname() {
-        pref = getSharedPreferences("data", MODE_PRIVATE);
+        pref = getSharedPreferences(currentUsername+"nickname", MODE_PRIVATE);
         String nickname = pref.getString("nickname", "");
         editText.setText(nickname);
-        pref = getSharedPreferences("image", MODE_PRIVATE);
+        pref = getSharedPreferences(currentUsername+"image", MODE_PRIVATE);
         String headPic = pref.getString("head_sculpture", "");
         Bitmap bitmap;
         if (headPic != "") {
@@ -183,5 +189,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onNicknameEdited(String nickname) {
         editText.setText(nickname);
+        pref=getSharedPreferences(currentUsername+"nickname",MODE_PRIVATE);
+        editor=pref.edit();
+        editor.putString("nickname",nickname);
+        editor.apply();
+        editor.clear();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!isTwoPressed) {
+            isTwoPressed = true;
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                        isTwoPressed = false;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        } else {
+            MyApplication.finishAll();
+        }
     }
 }
