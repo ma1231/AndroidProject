@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.custom;
 
 import android.content.Context;
 import android.text.method.HideReturnsTransformationMethod;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.example.personalapplication.R;
 
 public class CustomPasswordInput extends RelativeLayout {
 

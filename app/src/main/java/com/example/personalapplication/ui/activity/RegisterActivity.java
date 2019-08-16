@@ -1,12 +1,10 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +14,10 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.example.personalapplication.db.User;
+import com.example.personalapplication.MyApplication;
+import com.example.personalapplication.R;
+import com.example.personalapplication.model.User;
+import com.example.personalapplication.ui.custom.CustomToolbar;
 import com.example.personalapplication.util.CheckFormatUtils;
 import com.example.personalapplication.util.DateUtils;
 import com.example.personalapplication.util.PvCustomTimeUtil;

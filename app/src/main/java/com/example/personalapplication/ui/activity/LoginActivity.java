@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -14,7 +14,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.personalapplication.db.User;
+import com.example.personalapplication.MyApplication;
+import com.example.personalapplication.R;
+import com.example.personalapplication.model.User;
+import com.example.personalapplication.ui.custom.CustomToolbar;
 
 import org.litepal.LitePal;
 

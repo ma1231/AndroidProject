@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,10 +20,15 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.TimeUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.personalapplication.MyApplication;
+import com.example.personalapplication.R;
+import com.example.personalapplication.ui.custom.CustomCircleView;
+import com.example.personalapplication.ui.custom.MouldView;
+import com.example.personalapplication.ui.dialog.NicknameDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private CustomCircleView head_sculpture;
     private MouldView personal_mouldView;
+    private MouldView order_mouldView;
+    private MouldView car_mouldView;
     private EditText editText;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -45,16 +52,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.isFirstTimeLogin();
         setContentView(R.layout.activity_main);
         MyApplication.addActivity(this);
-        this.isFirstTimeLogin();
         head_sculpture = findViewById(R.id.head_sculpture);
         personal_mouldView = findViewById(R.id.personal);
+        order_mouldView=findViewById(R.id.order);
+        car_mouldView=findViewById(R.id.car);
         editText = findViewById(R.id.nickname);
         editText.setCursorVisible(false);
         this.loadImageAndNickname();
+        order_mouldView.setOnClickListener(this);
         head_sculpture.setOnClickListener(this);
         personal_mouldView.setOnClickListener(this);
+        car_mouldView.setOnClickListener(this);
         editText.setOnClickListener(this);
     }
 
@@ -85,6 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 nicknameDialog = new NicknameDialog();
                 nicknameDialog.setonNickNameEditedListener(this);
                 nicknameDialog.show(getSupportFragmentManager(), "show");
+                break;
+            case R.id.order:
+                Intent intent1 =new Intent(this,MyOrdersActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.car:
+                Intent intent2=new Intent(this,CarDetailsActivity.class);
+                startActivity(intent2);
+                break;
             default:
                 break;
         }

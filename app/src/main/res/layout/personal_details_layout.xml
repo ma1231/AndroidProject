@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.personalapplication.CustomToolbar
+    <com.example.personalapplication.ui.custom.CustomToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.personalapplication.MouldView
+        <com.example.personalapplication.ui.custom.MouldView
             android:id="@+id/mould_birthday"
             android:layout_width="150dp"
             android:layout_height="match_parent"
@@ -26,7 +26,7 @@
             app:img_src="@mipmap/header"
             app:text="生日" />
 
-        <com.example.personalapplication.MouldView
+        <com.example.personalapplication.ui.custom.MouldView
             android:id="@+id/mould_password"
             android:layout_width="150dp"
             android:layout_height="match_parent"

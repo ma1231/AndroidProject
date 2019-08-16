@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.dialog;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.personalapplication.R;
 
 public class NicknameDialog extends DialogFragment implements View.OnClickListener {
 

@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".ui.activity.RegisterActivity">
 
-    <com.example.personalapplication.CustomToolbar
+    <com.example.personalapplication.ui.custom.CustomToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -63,6 +63,7 @@
         android:layout_above="@+id/password_again"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:maxLines="1"
         android:hint="请输入您的密码"
         android:inputType="textPassword" />
 
@@ -73,6 +74,7 @@
         android:layout_above="@+id/birthday"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:maxLines="1"
         android:hint="请再次输入您的密码"
         android:inputType="textPassword" />
 
@@ -84,6 +86,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:cursorVisible="false"
+        android:maxLines="1"
         android:hint="请选择您的生日"
         android:inputType="date" />
 

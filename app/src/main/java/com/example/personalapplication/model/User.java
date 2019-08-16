@@ -1,4 +1,4 @@
-package com.example.personalapplication.db;
+package com.example.personalapplication.model;
 
 import org.litepal.crud.LitePalSupport;
 import java.util.Date;

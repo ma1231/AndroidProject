@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.personalapplication.MyApplication;
+import com.example.personalapplication.R;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 

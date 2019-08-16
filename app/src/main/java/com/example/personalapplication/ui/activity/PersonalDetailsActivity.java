@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.example.personalapplication.db.User;
+import com.example.personalapplication.MyApplication;
+import com.example.personalapplication.R;
+import com.example.personalapplication.model.User;
+import com.example.personalapplication.ui.custom.CustomToolbar;
+import com.example.personalapplication.ui.custom.MouldView;
 import com.example.personalapplication.util.DateUtils;
 import com.example.personalapplication.util.PvCustomTimeUtil;
 
@@ -36,9 +41,9 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
         MyApplication.addActivity(this);
         mBirthdayText = findViewById(R.id.mould_birthday);
         mPasswordText = findViewById(R.id.mould_password);
-        pvCustomTime = PvCustomTimeUtil.initCustomTimePicker(this, this);
         pref = getSharedPreferences("currentUsername", MODE_PRIVATE);
         currentUsername = pref.getString("currentUsername", "");
+        pvCustomTime = PvCustomTimeUtil.initCustomTimePicker(this, this);
         List<User> users = LitePal.select("birthday").where("username = ?", currentUsername).find(User.class);
         mBirthdayText.setText(DateUtils.date2String(users.get(0).getBirthday()));
         mPasswordText.setText("修改密码");
@@ -94,5 +99,9 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
         User user = new User();
         user.setBirthday(date);
         user.updateAll("username = ?", currentUsername);
+    }
+
+    public Date getDate(){
+        return mBirthdayText.getText();
     }
 }

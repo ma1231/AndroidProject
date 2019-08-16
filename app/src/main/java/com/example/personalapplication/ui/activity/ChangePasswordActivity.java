@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,7 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.personalapplication.db.User;
+import com.example.personalapplication.MyApplication;
+import com.example.personalapplication.R;
+import com.example.personalapplication.model.User;
+import com.example.personalapplication.ui.custom.CustomPasswordInput;
+import com.example.personalapplication.ui.custom.CustomToolbar;
 import com.example.personalapplication.util.CheckFormatUtils;
 
 import org.litepal.LitePal;
@@ -32,21 +36,24 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         MyApplication.addActivity(this);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.old_password:
+                        break;
+                    case R.id.new_password:
+                        break;
+                }
+            }
+        };
+
         mOldPassword = findViewById(R.id.old_password);
         mNewPassword = findViewById(R.id.new_password);
         mNewPasswordAga = findViewById(R.id.new_passwordAga);
-        mOldPassword.setImgClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mOldPassword.changeVisibility();
-            }
-        });
-        mNewPasswordAga.setImgClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mNewPasswordAga.changeVisibility();
-            }
-        });
+        mOldPassword.setImgClickListener(listener);
+        mNewPasswordAga.setImgClickListener(listener);
         mNewPassword.setImgClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,13 +120,4 @@ public class ChangePasswordActivity extends AppCompatActivity {
         }
         return true;
     }
-
-    /*@Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.toolbar:
-                Intent intent=new Intent(this,PersonalDetailsActivity.class);
-                startActivity(intent);
-        }
-    }*/
 }

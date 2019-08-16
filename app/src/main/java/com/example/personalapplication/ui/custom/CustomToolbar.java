@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.personalapplication.R;
 
 //自定义Toolbar
 public class CustomToolbar extends Toolbar {

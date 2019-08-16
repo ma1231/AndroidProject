@@ -1,4 +1,4 @@
-package com.example.personalapplication;
+package com.example.personalapplication.ui.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
+
+import com.example.personalapplication.R;
+import com.example.personalapplication.util.DateUtils;
+
+import java.util.Date;
 
 //自定义组合控件
 public class MouldView extends RelativeLayout {
@@ -53,6 +58,10 @@ public class MouldView extends RelativeLayout {
     //设置Edit_textView内容
     public void setText(String text) {
         edit_textView.setText(text);
+    }
+
+    public Date getText(){
+        return DateUtils.string2Date((String) edit_textView.getText());
     }
 
     //设置Edit_textView点击监听事件

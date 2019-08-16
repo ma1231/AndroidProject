@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.example.personalapplication.CustomCircleView
+            <com.example.personalapplication.ui.custom.CustomCircleView
                 android:id="@+id/mould_img"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
