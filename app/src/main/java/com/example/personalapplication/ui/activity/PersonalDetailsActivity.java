@@ -43,13 +43,13 @@ public class PersonalDetailsActivity extends AppCompatActivity implements OnTime
         mPasswordText = findViewById(R.id.mould_password);
         pref = getSharedPreferences("currentUsername", MODE_PRIVATE);
         currentUsername = pref.getString("currentUsername", "");
-        pvCustomTime = PvCustomTimeUtil.initCustomTimePicker(this, this);
         List<User> users = LitePal.select("birthday").where("username = ?", currentUsername).find(User.class);
         mBirthdayText.setText(DateUtils.date2String(users.get(0).getBirthday()));
         mPasswordText.setText("修改密码");
         mBirthdayText.setEditTextViewListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pvCustomTime = PvCustomTimeUtil.initCustomTimePicker(PersonalDetailsActivity.this,PersonalDetailsActivity.this);
                 pvCustomTime.show();
             }
         });

@@ -58,7 +58,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Orders order=mOrderList.get(position);
         holder.contact.setText(order.getContact());
         holder.orderId.setText(order.getOrderId());
@@ -93,11 +93,28 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
                 dialog.show();
             }
         });
-        //holder.
+        //if(holder.status.getText().equals("已取消")) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    onItemClickListener.onItemLongClick(holder.itemView,position);
+                    return false;
+                }
+            });
+        //}
     }
 
     @Override
     public int getItemCount() {
         return mOrderList.size();
+    }
+
+    private OnItemClickListener onItemClickListener;
+    public interface OnItemClickListener{
+        void onItemLongClick(View view,int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

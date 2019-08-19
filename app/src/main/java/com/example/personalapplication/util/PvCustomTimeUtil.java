@@ -2,6 +2,7 @@ package com.example.personalapplication.util;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,6 +11,7 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.example.personalapplication.R;
+import com.example.personalapplication.ui.activity.PersonalDetailsActivity;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,22 +24,26 @@ public class PvCustomTimeUtil {
         /*Calendar startDate = Calendar.getInstance();
         startDate.set(1900, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.setTime(new Date());
-        Calendar selectedDate = Calendar.getInstance();*/
-        /*selectedDate.setTime(new Date());
+        endDate.setTime(new Date());*/
+        Calendar selectedDate = Calendar.getInstance();
+        selectedDate.setTime(new Date());
         Class clazz = context.getClass();
+        //单例
+        Log.d("maziyang", String.valueOf(clazz.getName().endsWith("PersonalDetailsActivity")));
         if (clazz.getName().endsWith("PersonalDetailsActivity")) {
             try {
+                Log.d("maziyang","123");
                 PersonalDetailsActivity instance = (PersonalDetailsActivity) clazz.newInstance();
                 Date date = instance.getDate();
+                Log.d("maziyang", "initCustomTimePicker: "+DateUtils.date2String(date) );
                 selectedDate.setTime(date);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }*/
+        }
         pvCustomTime = new TimePickerBuilder(context, onTimeSelectListener)
                 .setType(new boolean[]{true, true, true, false, false, false})
-                //.setDate(selectedDate)
+                .setDate(selectedDate)
                 //.setRangDate(startDate, endDate)
                 .setCancelText("取消")
                 .setSubmitText("确认")
