@@ -37,6 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:maxLines="1"
+        android:inputType="text"
         android:hint="请输入您的用户名" />
 
     <EditText
@@ -47,6 +48,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:hint="请输入您的密码"
+        android:maxLines="1"
         android:inputType="textPassword" />
 
     <CheckBox

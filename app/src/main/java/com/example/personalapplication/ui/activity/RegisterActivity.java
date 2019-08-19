@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -51,11 +52,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mPasswordAga = findViewById(R.id.password_again);
         mRegisterBtn = findViewById(R.id.register);
         mBirthday = findViewById(R.id.birthday);
+        mBirthday.setShowSoftInputOnFocus(false);
         mUsername.setOnClickListener(this);
         mPassword.setOnClickListener(this);
         mPasswordAga.setOnClickListener(this);
         mRegisterBtn.setOnClickListener(this);
-        mBirthday.setOnClickListener(this);
+        mBirthday.setOnClickListener(this);//待完善
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

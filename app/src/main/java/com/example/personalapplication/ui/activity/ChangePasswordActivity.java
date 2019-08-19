@@ -36,24 +36,21 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         MyApplication.addActivity(this);
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.old_password:
-                        break;
-                    case R.id.new_password:
-                        break;
-                }
-            }
-        };
-
         mOldPassword = findViewById(R.id.old_password);
         mNewPassword = findViewById(R.id.new_password);
         mNewPasswordAga = findViewById(R.id.new_passwordAga);
-        mOldPassword.setImgClickListener(listener);
-        mNewPasswordAga.setImgClickListener(listener);
+        mOldPassword.setImgClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOldPassword.changeVisibility();
+            }
+        });
+        mNewPasswordAga.setImgClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNewPasswordAga.changeVisibility();
+            }
+        });
         mNewPassword.setImgClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,9 +66,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 List<User> users = LitePal.select("password").where("username = ?", currentUsername).find(User.class);
                 String password = users.get(0).getPassword();
                 Log.d("pass", password);
-                String oldPassword = mOldPassword.getText();
-                String newPassword = mNewPassword.getText();
-                String newPasswordAga = mNewPasswordAga.getText();
+                String oldPassword = mOldPassword.getText().trim();
+                String newPassword = mNewPassword.getText().trim();
+                String newPasswordAga = mNewPasswordAga.getText().trim();
                 boolean passwordFlag, successFlag = false;
                 passwordFlag = CheckFormatUtils.checkPassword(newPassword);
                 while (!successFlag) {
