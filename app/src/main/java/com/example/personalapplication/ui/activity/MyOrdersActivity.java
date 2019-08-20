@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
@@ -38,7 +39,7 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
     private PopupWindow popupWindow;
     private RecyclerView recyclerView;
     private OrdersAdapter adapter;
-    private Boolean showFlag = true;
+    private Button rightButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new SpaceItemDecoration(30));
         toolbar = findViewById(R.id.toolbar);
+        rightButton = toolbar.getRightButton();
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -64,13 +66,7 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
         toolbar.setRightButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (showFlag) {
-                    showPopupWindow(view);
-                    showFlag = false;
-                } else {
-                    popupWindow.dismiss();
-                    showFlag = true;
-                }
+                    showPopupWindow();
             }
         });
     }
@@ -89,21 +85,43 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
     }
 
     @SuppressLint("WrongConstant")
-    private void showPopupWindow(View v) {
-        View view = LayoutInflater.from(this).inflate(R.layout.custom_popupwindow, null);
-        RecyclerView dropdownRecyclerView = view.findViewById(R.id.dropdown_recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dropdownRecyclerView.setLayoutManager(layoutManager);
-        PopupWindowAdapter adapter = new PopupWindowAdapter(dropdownList);
-        adapter.setRvaListener(this);
-        dropdownRecyclerView.setAdapter(adapter);
-        popupWindow = new PopupWindow(view);
-        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setOutsideTouchable(false);
-        Button rightButton = toolbar.getRightButton();
-        popupWindow.showAsDropDown(rightButton);
+    private void showPopupWindow() {
+        if (popupWindow == null ) {
+            View view = LayoutInflater.from(this).inflate(R.layout.custom_popupwindow, null);
+            RecyclerView dropdownRecyclerView = view.findViewById(R.id.dropdown_recyclerView);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            dropdownRecyclerView.setLayoutManager(layoutManager);
+            PopupWindowAdapter adapter = new PopupWindowAdapter(dropdownList);
+            adapter.setRvaListener(this);
+            dropdownRecyclerView.setAdapter(adapter);
+            //产生背景变暗效果
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.alpha = 0.7f;
+            getWindow().setAttributes(lp);
+            popupWindow = new PopupWindow(view);
+            popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+            popupWindow.setOutsideTouchable(false);
+            popupWindow.setFocusable(true);
+            popupWindow.setOutsideTouchable(true);
+            popupWindow.showAsDropDown(rightButton);
+            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    WindowManager.LayoutParams lp = getWindow().getAttributes();
+                    lp.alpha = 1f;
+                    getWindow().setAttributes(lp);
+                }
+            });
+        }else if(popupWindow.isShowing()){
+            popupWindow.dismiss();
+        }else {
+            popupWindow.showAsDropDown(rightButton);
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.alpha = 0.7f;
+            getWindow().setAttributes(lp);
+        }
     }
 
     private void initDropdownText() {
@@ -143,4 +161,11 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
         });
         popupMenu.show();
     }
+
+   /* public void dismissPopupWindow() {
+        popupWindow.dismiss();
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 1f;
+        getWindow().setAttributes(lp);
+    }*/
 }

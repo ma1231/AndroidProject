@@ -1,5 +1,6 @@
 package com.example.personalapplication.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class PopupWindowAdapter extends RecyclerView.Adapter<PopupWindowAdapter.
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dropdown_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.dropdownButton.setOnClickListener(new View.OnClickListener() {
