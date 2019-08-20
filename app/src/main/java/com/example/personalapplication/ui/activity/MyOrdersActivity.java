@@ -3,13 +3,11 @@ package com.example.personalapplication.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
@@ -40,18 +38,20 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
     private PopupWindow popupWindow;
     private RecyclerView recyclerView;
     private OrdersAdapter adapter;
+    private Boolean showFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         MyApplication.addActivity(this);
+        initDropdownText();
         orderList = LitePal.findAll(Orders.class);
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new OrdersAdapter(orderList,this);
+        adapter = new OrdersAdapter(orderList, this);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new SpaceItemDecoration(30));
@@ -64,7 +64,13 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
         toolbar.setRightButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupWindow();
+                if (showFlag) {
+                    showPopupWindow(view);
+                    showFlag = false;
+                } else {
+                    popupWindow.dismiss();
+                    showFlag = true;
+                }
             }
         });
     }
@@ -83,8 +89,7 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
     }
 
     @SuppressLint("WrongConstant")
-    private void showPopupWindow() {
-        initDropdownText();
+    private void showPopupWindow(View v) {
         View view = LayoutInflater.from(this).inflate(R.layout.custom_popupwindow, null);
         RecyclerView dropdownRecyclerView = view.findViewById(R.id.dropdown_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -93,15 +98,12 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
         PopupWindowAdapter adapter = new PopupWindowAdapter(dropdownList);
         adapter.setRvaListener(this);
         dropdownRecyclerView.setAdapter(adapter);
-        popupWindow=new PopupWindow(view);
+        popupWindow = new PopupWindow(view);
         popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setContentView(dropdownRecyclerView);
-        popupWindow.setOutsideTouchable(true);
-//        if(toolbar!=null){
-//            toolbar.removeAllViews();
-//        }
-        //popupWindow.showAsDropDown();
+        popupWindow.setOutsideTouchable(false);
+        Button rightButton = toolbar.getRightButton();
+        popupWindow.showAsDropDown(rightButton);
     }
 
     private void initDropdownText() {
@@ -114,24 +116,27 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
 
     @Override
     public void setAdapterList(List<Orders> list) {
-        OrdersAdapter ordersAdapter = new OrdersAdapter(list,this);
+        orderList = list;
+        OrdersAdapter ordersAdapter = new OrdersAdapter(list, this);
+        adapter = ordersAdapter;
+        ordersAdapter.setOnItemClickListener(this);
         recyclerView.setAdapter(ordersAdapter);
     }
 
     @Override
     public void onItemLongClick(View view, final int position) {
-        PopupMenu popupMenu=new PopupMenu(this,view);
-        popupMenu.getMenuInflater().inflate(R.menu.popupmenu,popupMenu.getMenu());
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.popupmenu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 //解决删除item时的position错乱问题
                 //使用RecyclerView的局部刷新方法notifyItemRangeChanged(int positionStart, int itemCount)
                 Orders remove = orderList.remove(position);
-                //LitePal.deleteAll(remove.getClass(),)
+                LitePal.delete(remove.getClass(), remove.getId());
                 adapter.notifyItemRemoved(position);
-                if(position!=orderList.size()){
-                    adapter.notifyItemRangeChanged(position,orderList.size()-position);
+                if (position != orderList.size()) {
+                    adapter.notifyItemRangeChanged(position, orderList.size() - position);
                 }
                 return false;
             }

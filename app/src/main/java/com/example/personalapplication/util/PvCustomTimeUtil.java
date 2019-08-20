@@ -21,30 +21,23 @@ public class PvCustomTimeUtil {
     private static TimePickerView pvCustomTime;
 
     public static TimePickerView initCustomTimePicker(Context context, OnTimeSelectListener onTimeSelectListener) {
-        /*Calendar startDate = Calendar.getInstance();
-        startDate.set(1900, 1, 1);
+        Calendar startDate = Calendar.getInstance();
+        startDate.set(1920, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.setTime(new Date());*/
+        endDate.setTime(new Date());
         Calendar selectedDate = Calendar.getInstance();
         selectedDate.setTime(new Date());
         Class clazz = context.getClass();
-        //单例
-        Log.d("maziyang", String.valueOf(clazz.getName().endsWith("PersonalDetailsActivity")));
+        //解决弹窗日期与桌面显示不同问题
         if (clazz.getName().endsWith("PersonalDetailsActivity")) {
-            try {
-                Log.d("maziyang","123");
-                PersonalDetailsActivity instance = (PersonalDetailsActivity) clazz.newInstance();
-                Date date = instance.getDate();
-                Log.d("maziyang", "initCustomTimePicker: "+DateUtils.date2String(date) );
-                selectedDate.setTime(date);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            PersonalDetailsActivity personalDetailsActivity = (PersonalDetailsActivity) context;
+            final Date date = personalDetailsActivity.getDate();
+            selectedDate.setTime(date);
         }
         pvCustomTime = new TimePickerBuilder(context, onTimeSelectListener)
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .setDate(selectedDate)
-                //.setRangDate(startDate, endDate)
+                .setRangDate(startDate, endDate)
                 .setCancelText("取消")
                 .setSubmitText("确认")
                 .setTitleText("生日")

@@ -51,4 +51,8 @@ public class CustomToolbar extends Toolbar {
     public void setRightButtonListener(OnClickListener onClickListener) {
         rightButton.setOnClickListener(onClickListener);
     }
+
+    public Button getRightButton() {
+        return rightButton;
+    }
 }

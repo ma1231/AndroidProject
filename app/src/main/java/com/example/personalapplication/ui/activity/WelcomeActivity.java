@@ -1,21 +1,32 @@
 package com.example.personalapplication.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.personalapplication.MyApplication;
 import com.example.personalapplication.R;
+import com.example.personalapplication.http.GetRequest_Interface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button loginBtn;
     private Button registerBtn;
-    private ImageView backgroundImg;//欢迎界面背景图通过网络获取，待完成
+    private ImageView backgroundImg;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +38,13 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         backgroundImg = findViewById(R.id.background_picture);
         loginBtn.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
+        /*prefs=getSharedPreferences("bing_pic",MODE_PRIVATE);
+        String bingPic=prefs.getString("bing_pic",null);
+        if(bingPic!=null){
+            Glide.with(this).load(bingPic).into(backgroundImg);
+        }else {
+            loadBingPic();
+        }*/
     }
 
     @Override
@@ -43,6 +61,34 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    private void loadBingPic() {
+        Retrofit retrofit=new Retrofit.Builder().baseUrl("http://guolin.tech/api/bing_pic").build();
+        GetRequest_Interface request=retrofit.create(GetRequest_Interface.class);
+        Call<String> call = request.getImage();
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                final String bingPic=response.body();
+                Log.d("maziyang", "onResponse: "+bingPic);
+                editor=prefs.edit();
+                editor.putString("bing_pic",bingPic);
+                editor.apply();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Glide.with(WelcomeActivity.this).load(bingPic).into(backgroundImg);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
 
     @Override

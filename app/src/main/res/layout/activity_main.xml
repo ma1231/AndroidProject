@@ -64,6 +64,7 @@
             app:text="我的订单"/>
 
         <com.example.personalapplication.ui.custom.MouldView
+            android:id="@+id/wallet"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

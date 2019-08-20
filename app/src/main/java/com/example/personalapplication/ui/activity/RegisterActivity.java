@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ import org.litepal.LitePal;
 import java.util.Date;
 import java.util.List;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, OnTimeSelectListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, OnTimeSelectListener, View.OnTouchListener {
 
     private CustomToolbar toolbar;
     private EditText mUsername;
@@ -57,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mPassword.setOnClickListener(this);
         mPasswordAga.setOnClickListener(this);
         mRegisterBtn.setOnClickListener(this);
-        mBirthday.setOnClickListener(this);//待完善
+        mBirthday.setOnTouchListener(this);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -87,9 +88,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.password:
                 break;
             case R.id.password_again:
-                break;
-            case R.id.birthday:
-                pvCustomTime.show();
                 break;
             case R.id.register:
                 username = mUsername.getText().toString().trim();
@@ -145,5 +143,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             birthday = DateUtils.date2String(date);
             mBirthday.setText(birthday);
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (view.getId()){
+            //解决点击两次才能显示的问题
+            case R.id.birthday:
+                pvCustomTime.show();
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 }

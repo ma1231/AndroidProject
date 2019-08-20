@@ -38,51 +38,58 @@
                 <com.example.personalapplication.ui.custom.MouldView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:edit_visibility="invisible"
+                    app:edit_visibility="visible"
                     app:img_src="@mipmap/header"
-                    app:text="车牌号" />
+                    app:text="车牌号"
+                    app:edit_text="苏A 8888"/>
 
                 <com.example.personalapplication.ui.custom.MouldView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:edit_visibility="invisible"
+                    app:edit_visibility="visible"
                     app:img_src="@mipmap/header"
-                    app:text="上牌日期" />
+                    app:text="上牌日期"
+                    app:edit_text="2018-08-08"/>
 
                 <com.example.personalapplication.ui.custom.MouldView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:edit_visibility="invisible"
+                    app:edit_visibility="visible"
                     app:img_src="@mipmap/header"
-                    app:text="车辆颜色" />
+                    app:text="车辆颜色"
+                    app:edit_text="红色"/>
 
                 <com.example.personalapplication.ui.custom.MouldView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:edit_visibility="invisible"
+                    app:edit_visibility="visible"
                     app:img_src="@mipmap/header"
-                    app:text="车辆型号" />
+                    app:text="车辆型号"
+                    app:edit_text="T 70"/>
 
                 <com.example.personalapplication.ui.custom.MouldView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:edit_visibility="invisible"
+                    app:edit_visibility="visible"
                     app:img_src="@mipmap/header"
-                    app:text="发动机号" />
+                    app:text="发动机号"
+                    app:edit_text="12345678"/>
 
                 <com.example.personalapplication.ui.custom.MouldView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:edit_visibility="invisible"
+                    app:edit_visibility="visible"
                     app:img_src="@mipmap/header"
-                    app:text="VIN码" />
+                    app:text="VIN码"
+                    app:edit_text="12345678"/>
 
                 <com.example.personalapplication.ui.custom.MouldView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:edit_visibility="invisible"
+                    app:edit_visibility="visible"
                     app:img_src="@mipmap/header"
-                    app:text="车辆下线时间" />
+                    app:text="车辆下线时间"
+                    app:edit_text="2018-08-08 10:10:10"/>
 
             </LinearLayout>
         </HorizontalScrollView>

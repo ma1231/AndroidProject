@@ -37,6 +37,8 @@ public class MouldView extends RelativeLayout {
         int img_src = mTypedArray.getResourceId(R.styleable.mouldView_img_src, R.mipmap.ic_launcher);
         String text = mTypedArray.getString(R.styleable.mouldView_text);
         String visibility =mTypedArray.getString(R.styleable.mouldView_edit_visibility);
+        String editText=mTypedArray.getString(R.styleable.mouldView_edit_text);
+        edit_textView.setText(editText);
         customCircleView.setImageResource(img_src);
         info_textView.setText(text);
         if(visibility.equals("visible")){

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp">
+
+    <com.example.personalapplication.ui.custom.CustomCouponView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FF413F3F"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        custom:gap="8dp"
+        custom:radius="5dp">
+
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_toLeftOf="@+id/money"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="40dp" />
+
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="元"
+                android:textSize="10dp"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </com.example.personalapplication.ui.custom.CustomCouponView>
+</LinearLayout>

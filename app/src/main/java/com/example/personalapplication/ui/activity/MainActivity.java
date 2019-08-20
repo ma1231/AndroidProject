@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MouldView personal_mouldView;
     private MouldView order_mouldView;
     private MouldView car_mouldView;
+    private MouldView wallet_mouldView;
     private EditText editText;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         personal_mouldView = findViewById(R.id.personal);
         order_mouldView=findViewById(R.id.order);
         car_mouldView=findViewById(R.id.car);
+        wallet_mouldView=findViewById(R.id.wallet);
         editText = findViewById(R.id.nickname);
         editText.setCursorVisible(false);
         this.loadImageAndNickname();
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         head_sculpture.setOnClickListener(this);
         personal_mouldView.setOnClickListener(this);
         car_mouldView.setOnClickListener(this);
+        car_mouldView.setOnClickListener(this);
+        wallet_mouldView.setOnClickListener(this);
         editText.setOnClickListener(this);
     }
 
@@ -104,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.car:
                 Intent intent2=new Intent(this,CarDetailsActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.wallet:
+                Intent intent3=new Intent(this,WalletActivity.class);
+                startActivity(intent3);
                 break;
             default:
                 break;

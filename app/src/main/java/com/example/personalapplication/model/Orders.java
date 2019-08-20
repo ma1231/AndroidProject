@@ -6,11 +6,20 @@ import java.util.Date;
 
 public class Orders extends LitePalSupport {
 
+    private int id;
     private String orderId;
     private String contact;
     private String phoneNumber;
     private Date date;
     private String status;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getOrderId() {
         return orderId;

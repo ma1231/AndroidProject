@@ -52,16 +52,16 @@ public class PopupWindowAdapter extends RecyclerView.Adapter<PopupWindowAdapter.
                     List<Orders> orders = LitePal.findAll(Orders.class);
                     rvaListener.setAdapterList(orders);
                 } else if (dropdownText.equals("待确认")) {
-                    List<Orders> orders = LitePal.select("status").where("status =","待确认").find(Orders.class);
+                    List<Orders> orders = LitePal.where("status = ?","待确认").find(Orders.class);
                     rvaListener.setAdapterList(orders);
                 } else if (dropdownText.equals("待维保")) {
-                    List<Orders> orders = LitePal.select("status").where("status =","待确认").find(Orders.class);
+                    List<Orders> orders = LitePal.where("status = ?","待维保").find(Orders.class);
                     rvaListener.setAdapterList(orders);
                 } else if (dropdownText.equals("已维保")) {
-                    List<Orders> orders = LitePal.select("status").where("status =","待确认").find(Orders.class);
+                    List<Orders> orders = LitePal.where("status = ?","待取消").find(Orders.class);
                     rvaListener.setAdapterList(orders);
                 } else if (dropdownText.equals("已取消")) {
-                    List<Orders> orders = LitePal.select("status").where("status =","待确认").find(Orders.class);
+                    List<Orders> orders = LitePal.where("status = ?","已取消").find(Orders.class);
                     rvaListener.setAdapterList(orders);
                 }
             }

@@ -3,6 +3,7 @@ package com.example.personalapplication.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
+                    Log.d("maziyang", "onLongClick: "+holder.itemView+" "+position+" "+onItemClickListener);
                     onItemClickListener.onItemLongClick(holder.itemView,position);
                     return false;
                 }
