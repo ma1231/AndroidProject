@@ -1,5 +1,6 @@
 package com.example.personalapplication.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.personalapplication.R;
 import com.example.personalapplication.model.Orders;
+import com.example.personalapplication.ui.activity.MyOrdersActivity;
 
 import org.litepal.LitePal;
 
@@ -20,13 +22,11 @@ public class PopupWindowAdapter extends RecyclerView.Adapter<PopupWindowAdapter.
 
     private List<String> list;
     private RecyclerViewAdapterListener rvaListener;
+    private Context context;
 
-    public PopupWindowAdapter(List<String> list) {
+    public PopupWindowAdapter(List<String> list, Context context) {
         this.list = list;
-    }
-
-    public void setRvaListener(RecyclerViewAdapterListener rvaListener) {
-        this.rvaListener = rvaListener;
+        this.context = context;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -44,6 +44,7 @@ public class PopupWindowAdapter extends RecyclerView.Adapter<PopupWindowAdapter.
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dropdown_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
+        final MyOrdersActivity myOrdersActivity= (MyOrdersActivity) context;
         viewHolder.dropdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,18 +54,19 @@ public class PopupWindowAdapter extends RecyclerView.Adapter<PopupWindowAdapter.
                     List<Orders> orders = LitePal.findAll(Orders.class);
                     rvaListener.setAdapterList(orders);
                 } else if (dropdownText.equals("待确认")) {
-                    List<Orders> orders = LitePal.where("status = ?","待确认").find(Orders.class);
+                    List<Orders> orders = LitePal.where("status = ?", "待确认").find(Orders.class);
                     rvaListener.setAdapterList(orders);
-                } else if (dropdownText.equals("待维保")) {
-                    List<Orders> orders = LitePal.where("status = ?","待维保").find(Orders.class);
+                } else if (dropdownText.equals("待维修")) {
+                    List<Orders> orders = LitePal.where("status = ?", "待维修").find(Orders.class);
                     rvaListener.setAdapterList(orders);
-                } else if (dropdownText.equals("已维保")) {
-                    List<Orders> orders = LitePal.where("status = ?","待取消").find(Orders.class);
+                } else if (dropdownText.equals("已维修")) {
+                    List<Orders> orders = LitePal.where("status = ?", "已维修").find(Orders.class);
                     rvaListener.setAdapterList(orders);
                 } else if (dropdownText.equals("已取消")) {
-                    List<Orders> orders = LitePal.where("status = ?","已取消").find(Orders.class);
+                    List<Orders> orders = LitePal.where("status = ?", "已取消").find(Orders.class);
                     rvaListener.setAdapterList(orders);
                 }
+                myOrdersActivity.getPopupWindow().dismiss();
             }
         });
         return viewHolder;
@@ -83,5 +85,9 @@ public class PopupWindowAdapter extends RecyclerView.Adapter<PopupWindowAdapter.
 
     public interface RecyclerViewAdapterListener {
         void setAdapterList(List<Orders> list);
+    }
+
+    public void setRvaListener(RecyclerViewAdapterListener rvaListener) {
+        this.rvaListener = rvaListener;
     }
 }

@@ -92,12 +92,12 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             dropdownRecyclerView.setLayoutManager(layoutManager);
-            PopupWindowAdapter adapter = new PopupWindowAdapter(dropdownList);
+            PopupWindowAdapter adapter = new PopupWindowAdapter(dropdownList,this);
             adapter.setRvaListener(this);
             dropdownRecyclerView.setAdapter(adapter);
             //产生背景变暗效果
             WindowManager.LayoutParams lp = getWindow().getAttributes();
-            lp.alpha = 0.7f;
+            lp.alpha = 0.6f;
             getWindow().setAttributes(lp);
             popupWindow = new PopupWindow(view);
             popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -119,7 +119,7 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
         }else {
             popupWindow.showAsDropDown(rightButton);
             WindowManager.LayoutParams lp = getWindow().getAttributes();
-            lp.alpha = 0.7f;
+            lp.alpha = 0.6f;
             getWindow().setAttributes(lp);
         }
     }
@@ -127,8 +127,8 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
     private void initDropdownText() {
         dropdownList.add("全部");
         dropdownList.add("待确认");
-        dropdownList.add("待维保");
-        dropdownList.add("已维保");
+        dropdownList.add("待维修");
+        dropdownList.add("已维修");
         dropdownList.add("已取消");
     }
 
@@ -162,7 +162,11 @@ public class MyOrdersActivity extends AppCompatActivity implements PopupWindowAd
         popupMenu.show();
     }
 
-   /* public void dismissPopupWindow() {
+    public PopupWindow getPopupWindow() {
+        return popupWindow;
+    }
+
+/* public void dismissPopupWindow() {
         popupWindow.dismiss();
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = 1f;

@@ -98,7 +98,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                   // Log.d("maziyang", "onLongClick: "+holder.itemView+" "+position+" "+onItemClickListener);
                     onItemClickListener.onItemLongClick(holder.itemView,position);
                     return false;
                 }
