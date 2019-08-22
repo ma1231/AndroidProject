@@ -12,7 +12,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
@@ -23,15 +22,33 @@
                 <action android:name="com"/>
             </intent-filter>
         </receiver>
-        <activity android:name=".ui.activity.WalletActivity" />
-        <activity android:name=".ui.activity.CarDetailsActivity" />
-        <activity android:name=".ui.activity.MyOrdersActivity" />
-        <activity android:name=".ui.activity.ChangePasswordActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.RegisterActivity" />
-        <activity android:name=".ui.activity.PersonalDetailsActivity" />
-        <activity android:name=".ui.activity.WelcomeActivity" />
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.WalletActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.CarDetailsActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.MyOrdersActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.ChangePasswordActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.PersonalDetailsActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.WelcomeActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"/>
+        <activity android:name=".ui.activity.MainActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

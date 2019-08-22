@@ -96,4 +96,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        MyApplication.finishAll();
+    }
 }
